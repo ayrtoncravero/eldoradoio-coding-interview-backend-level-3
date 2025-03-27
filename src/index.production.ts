@@ -8,5 +8,5 @@ main().then(() => {
 
     console.log(`version: ${packageJson.version}`)
 }).catch((error: any) => {
-    console.log('uncaught error: ', error.message);
+    console.log('uncaught error: ', error.message, error.stack);
 })

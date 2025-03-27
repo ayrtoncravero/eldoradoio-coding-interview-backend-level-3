@@ -1,0 +1,34 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: node-api
+    ports:
+      - "3000:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file:
+      - .env
+
+  db:
+    image: mysql:8.0
+    container_name: mysql-db
+    environment:
+      - MYSQL_ROOT_PASSWORD=${PASSWORD_DB}  # Cambiar la contraseña del root a budin123
+      - MYSQL_DATABASE=${NAME_DB}  # Crear la base de datos con el nombre correcto
+      - MYSQL_ROOT_USER=${USERNAME_DB}
+      - MYSQL_PASSWORD=${PASSWORD_DB}
+    volumes:
+      - mysql_data:/var/lib/mysql  # Persistencia de datos entre reinicios del contenedor
+    ports:
+      - "3307:3306"  # Exponer el puerto de la base de datos
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "${USERNAME_DB}", "--password=${PASSWORD_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+volumes:
+  mysql_data:  # Volumen para persistir los datos
