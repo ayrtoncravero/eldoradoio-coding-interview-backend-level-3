@@ -1,7 +1,6 @@
 import { Router } from 'express';
-import { ItemController } from '../controllers/item.controller';
+import { itemController } from '../modules/items/item.dependencies';
 const router = Router();
-const itemController = new ItemController();
 
 router.post('/', itemController.create.bind(itemController));
 router.get('/', itemController.getAll.bind(itemController));

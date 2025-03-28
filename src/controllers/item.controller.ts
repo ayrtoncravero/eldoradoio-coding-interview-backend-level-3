@@ -13,13 +13,10 @@ import { DatabaseError } from '../errors/DatabaseError';
 import { deleteItemById } from '../validators/deleteItemById.validate';
 
 export class ItemController {
-	private itemService: ItemService;
-    private itemRepository: ItemRepository
-
-    constructor() {
-        this.itemService = new ItemService();
-        this.itemRepository = new ItemRepository();
-    };
+    constructor(
+        private readonly itemService: ItemService,
+        private readonly itemRepository: ItemRepository
+    ) {}
 
     async create(req: Request, res: Response, next: NextFunction): Promise<Response | any> {
         // TODO: (Ver si agrego)Agregar dto directamente para hacer las validaciones ahi

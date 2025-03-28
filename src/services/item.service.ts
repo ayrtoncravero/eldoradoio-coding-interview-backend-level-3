@@ -4,11 +4,9 @@ import { DatabaseError } from '../errors/DatabaseError';
 import { ItemRepository } from '../repositories/item.repository';
 
 export class ItemService {
-    private itemRepository: ItemRepository
-
-    constructor() {
-        this.itemRepository = new ItemRepository();
-    }
+    constructor(
+        private readonly itemRepository: ItemRepository,
+    ) {};
 
     /**
      * Obtiene un item por su ID.

@@ -6,8 +6,8 @@ import { IItemRepository } from '../interfaces/IItemRepository';
 export class ItemRepository implements IItemRepository {
     private repository: Repository<Item>;
 
-    constructor() {
-        this.repository = AppDataSource.getRepository(Item);
+    constructor(repository: Repository<Item>) {
+        this.repository = repository;
     }
 
     async getOneById(id: number): Promise<Item | null> {
