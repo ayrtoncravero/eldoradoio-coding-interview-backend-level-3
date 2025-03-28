@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import http from 'http'
-import app from './app';
+import { app } from './app';
 import database from './config/database';
 import logger from './utils/logger';
 import { config } from './config/config';

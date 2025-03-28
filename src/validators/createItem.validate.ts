@@ -1,7 +1,6 @@
 import Joi from 'joi';
-import Item from '../interfaces/IItem';
 
-export const createItemValidate = (data: Item) => {
+export const createItemValidate = (data: any) => {
     const schema = Joi.object().keys({
         name: Joi.string().required(),
         price: Joi.number().min(1).required(),
