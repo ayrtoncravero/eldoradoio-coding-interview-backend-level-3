@@ -4,6 +4,9 @@ import cors from 'cors';
 import { errorHandler } from './middleware/errorHandler';
 import apiRoutes from './routes/index.route';
 import http from 'http';
+import swaggerUi from 'swagger-ui-express';
+import swaggerSpec from './config/swaggerConfig';
+import { config } from './config/config';
 
 const app = express();
 
@@ -18,6 +21,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(helmet.crossOriginResourcePolicy({
     policy: 'cross-origin',
 }));
+
+if (config.NODE_ENV === 'development') {
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+}
 
 app.use('/api', apiRoutes);
 
