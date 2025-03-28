@@ -4,20 +4,10 @@ import { DatabaseError } from '../errors/DatabaseError';
 import { ItemRepository } from '../repositories/item.repository';
 
 export class ItemService {
-    private itemRepository: ItemRepository
+    constructor(
+        private readonly itemRepository: ItemRepository,
+    ) {};
 
-    constructor() {
-        this.itemRepository = new ItemRepository();
-    }
-
-    /**
-     * Obtiene un item por su ID.
-     * @param id - Identificador del item.
-     * @returns El item encontrado o `null` si no existe.
-     */
-    // async getItemById(id: number): Promise<Item | null> {
-    //     return await this.itemRepository.findOne({ where: { id } });
-    // }
     async create(item: any): Promise<Item> {
         try {
             const newItem = new Item();

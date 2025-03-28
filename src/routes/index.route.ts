@@ -1,10 +1,10 @@
 import { Router } from 'express';
 import itemsRoutes from './item.route';
-import healthRoutes from './health.route';
+import pingRoutes from './ping.route';
 
 const router: Router = Router();
 
 router.use('/items', itemsRoutes);
-router.use('/health', healthRoutes);
+router.use('/ping', pingRoutes);
 
 export default router;

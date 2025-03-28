@@ -3,6 +3,7 @@ import helmet from 'helmet';
 import cors from 'cors';
 import { errorHandler } from './middleware/errorHandler';
 import apiRoutes from './routes/index.route';
+import http from 'http';
 
 const app = express();
 
@@ -22,4 +23,6 @@ app.use('/api', apiRoutes);
 
 app.use(errorHandler);
 
-export default app;
+const server = http.createServer(app);
+
+export { app, server };
