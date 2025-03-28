@@ -3,7 +3,6 @@ import { ItemService } from '../services/item.service';
 import Joi from 'joi';
 import { createItemValidate } from '../validators/createItem.validate';
 import { BadRequestError } from '../errors/BadRequestError';
-import IItem from '../interfaces/IItem';
 import { Item } from '../entity/Item';
 import { ItemRepository } from '../repositories/item.repository';
 import { NotFoundError } from '../errors/NotFoundError';
@@ -15,37 +14,34 @@ import { deleteItemById } from '../validators/deleteItemById.validate';
 export class ItemController {
     constructor(
         private readonly itemService: ItemService,
-        private readonly itemRepository: ItemRepository
+        private readonly itemRepository: ItemRepository,
     ) {}
 
     async create(req: Request, res: Response, next: NextFunction): Promise<Response | any> {
         // TODO: (Ver si agrego)Agregar dto directamente para hacer las validaciones ahi
-
-        const { name, price } = req.body;
-
-        const data: IItem = {
-            name,
-            price,
-        };
-
-        const validation: Joi.ValidationResult<any> = createItemValidate(data);
-        if (validation.error) {
-            console.log('error validation in create item: ', validation.error.message);
-
-            throw new BadRequestError(`${validation.error.message}`);
-        }
-
-        let item: Item | null = null;
-
         try {
-            item = await this.itemService.create(data);
+            const { name, price } = req.body;
+
+            const data: any = {
+                name,
+                price,
+            };
+
+            const validation: Joi.ValidationResult<any> = createItemValidate(data);
+            if (validation.error) {
+                console.log('error validation in create item: ', validation.error.message);
+
+                throw new BadRequestError(`${validation.error.message}`);
+            }
+
+            let item: Item | null = await this.itemService.create(data);
+
+            return res.status(201).json(item);
         } catch (error: any) {
-            console.log('error in create item controller: ', error.message);
+            console.log('error: ', error.message);
 
-            return next(error);
+            next(error);
         }
-
-        return res.status(201).json(item);
     }
     async getAll(req: Request, res: Response, next: NextFunction) {
         try {
@@ -115,6 +111,11 @@ export class ItemController {
     
                 throw new DatabaseError('error in save item');
             }
+
+            return res.json({
+                ...savedItem,
+                price: Number(savedItem.price), // Convertir a número
+            });
 
             return res.json(item);
         } catch (error: any) {

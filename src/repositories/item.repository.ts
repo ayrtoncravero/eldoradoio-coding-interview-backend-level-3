@@ -1,6 +1,5 @@
 import { DeleteResult, Repository } from 'typeorm';
 import { Item } from '../entity/Item';
-import AppDataSource from '../config/database';
 import { IItemRepository } from '../interfaces/IItemRepository';
 
 export class ItemRepository implements IItemRepository {

@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
 
-export class HealthController {
+export class PingController {
     async get(req: Request, res: Response) {
         try {
             console.log('OK');
 
             return res.status(200).json({
-                message: 'OK',
+                ok: true,
             });
         } catch (error) {
             console.error("Error fetching items:", error);

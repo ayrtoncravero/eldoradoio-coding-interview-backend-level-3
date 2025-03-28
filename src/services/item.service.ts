@@ -8,14 +8,6 @@ export class ItemService {
         private readonly itemRepository: ItemRepository,
     ) {};
 
-    /**
-     * Obtiene un item por su ID.
-     * @param id - Identificador del item.
-     * @returns El item encontrado o `null` si no existe.
-     */
-    // async getItemById(id: number): Promise<Item | null> {
-    //     return await this.itemRepository.findOne({ where: { id } });
-    // }
     async create(item: any): Promise<Item> {
         try {
             const newItem = new Item();
