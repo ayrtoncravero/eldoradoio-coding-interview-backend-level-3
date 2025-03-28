@@ -6,7 +6,6 @@ import logger from './utils/logger';
 import { config } from './config/config';
 
 const PORT = config.PORT || 3000;
-
 async function main(): Promise<void> {
     await database.initialize();
     logger.info('Database connect');
@@ -14,7 +13,12 @@ async function main(): Promise<void> {
     const server = http.createServer(app)
 
     app.listen(PORT, () => {
-        logger.info(`⚡️ Server running on port: ${PORT}`)
+        logger.info(`⚡️ Server running on port: ${PORT}`);
+
+        console.log(`Server corriendo en http://localhost:${config.PORT}`);
+        if (process.env.NODE_ENV === 'development') {
+            console.log(`Swagger UI disponible en http://localhost:${config.PORT}/api-docs`);
+        }
     })
 
     const onProcessKill = async () => {

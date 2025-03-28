@@ -17,6 +17,45 @@ export class ItemController {
         private readonly itemRepository: ItemRepository,
     ) {}
 
+    /**
+     * @swagger
+     * /items:
+     *   post:
+     *     summary: Crear un nuevo item
+     *     description: Crea un nuevo item en la base de datos. Valida los datos antes de crear el item.
+     *     requestBody:
+     *       required: true
+     *       content:
+     *         application/json:
+     *           schema:
+     *             type: object
+     *             properties:
+     *               name:
+     *                 type: string
+     *               price:
+     *                 type: number
+     *             required:
+     *               - name
+     *               - price
+     *     responses:
+     *       201:
+     *         description: Item creado exitosamente
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: object
+     *               properties:
+     *                 id:
+     *                   type: integer
+     *                 name:
+     *                   type: string
+     *                 price:
+     *                   type: number
+     *       400:
+     *         description: Error de validación en los datos proporcionados
+     *       500:
+     *         description: Error en el servidor
+     */
     async create(req: Request, res: Response, next: NextFunction): Promise<Response | any> {
         // TODO: (Ver si agrego)Agregar dto directamente para hacer las validaciones ahi
         try {
@@ -43,6 +82,33 @@ export class ItemController {
             next(error);
         }
     }
+    /**
+     * @swagger
+     * /items:
+     *   get:
+     *     summary: Obtener todos los items
+     *     description: Obtiene todos los items almacenados en la base de datos.
+     *     responses:
+     *       200:
+     *         description: Lista de items
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: array
+     *               items:
+     *                 type: object
+     *                 properties:
+     *                   id:
+     *                     type: integer
+     *                   name:
+     *                     type: string
+     *                   price:
+     *                     type: number
+     *       404:
+     *         description: No se encontraron items
+     *       500:
+     *         description: Error en el servidor
+     */
     async getAll(req: Request, res: Response, next: NextFunction) {
         try {
             const items: Item[] | null = await this.itemRepository.getAll();
@@ -59,6 +125,40 @@ export class ItemController {
             return next(error);
         }
     }
+    /**
+     * @swagger
+     * /items/{id}:
+     *   get:
+     *     summary: Obtener un item por su ID
+     *     description: Devuelve el item con el ID especificado.
+     *     parameters:
+     *       - in: path
+     *         name: id
+     *         required: true
+     *         description: El ID del item a obtener
+     *         schema:
+     *           type: integer
+     *     responses:
+     *       200:
+     *         description: Item encontrado
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: object
+     *               properties:
+     *                 id:
+     *                   type: integer
+     *                 name:
+     *                   type: string
+     *                 price:
+     *                   type: number
+     *       400:
+     *         description: Error de validación en el ID proporcionado
+     *       404:
+     *         description: Item no encontrado
+     *       500:
+     *         description: Error en el servidor
+     */
     async getById(req: Request, res: Response, next: NextFunction) {
         const id: number = parseInt(req.params.id);
 
@@ -84,6 +184,54 @@ export class ItemController {
             return next(error);
         }
     }
+    /**
+     * @swagger
+     * /items/{id}:
+     *   patch:
+     *     summary: Actualizar un item por su ID
+     *     description: Actualiza los detalles de un item específico por su ID.
+     *     parameters:
+     *       - in: path
+     *         name: id
+     *         required: true
+     *         description: El ID del item a actualizar
+     *         schema:
+     *           type: integer
+     *     requestBody:
+     *       required: true
+     *       content:
+     *         application/json:
+     *           schema:
+     *             type: object
+     *             properties:
+     *               name:
+     *                 type: string
+     *               price:
+     *                 type: number
+     *             required:
+     *               - name
+     *               - price
+     *     responses:
+     *       200:
+     *         description: Item actualizado correctamente
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: object
+     *               properties:
+     *                 id:
+     *                   type: integer
+     *                 name:
+     *                   type: string
+     *                 price:
+     *                   type: number
+     *       400:
+     *         description: Error de validación en los datos proporcionados
+     *       404:
+     *         description: Item no encontrado
+     *       500:
+     *         description: Error en el servidor
+     */
     async update(req: Request, res: Response, next: NextFunction) {
         const id: number = parseInt(req.params.id);
         const { name, price } = req.body;
@@ -124,6 +272,29 @@ export class ItemController {
             return next(error);
         }
     }
+    /**
+     * @swagger
+     * /items/{id}:
+     *   delete:
+     *     summary: Eliminar un item por su ID
+     *     description: Elimina un item de la base de datos por su ID.
+     *     parameters:
+     *       - in: path
+     *         name: id
+     *         required: true
+     *         description: El ID del item a eliminar
+     *         schema:
+     *           type: integer
+     *     responses:
+     *       204:
+     *         description: Item eliminado correctamente
+     *       400:
+     *         description: Error de validación en el ID proporcionado
+     *       404:
+     *         description: Item no encontrado
+     *       500:
+     *         description: Error en el servidor
+     */
     async delete(req: Request, res: Response, next: NextFunction) {
         const id: number = parseInt(req.params.id);
 
