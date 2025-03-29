@@ -55,7 +55,7 @@ describe('E2E Tests', () => {
 		);
 	});
 
-	it("should be able to create a new item and get it by id", async () => {
+	it('should be able to create a new item and get it by id', async () => {
 		const response = await request(app)
 			.post('/api/items')
 			.send({
@@ -88,7 +88,7 @@ describe('E2E Tests', () => {
 		);
 	});
 	
-	it("should be able to update an item", async () => {
+	it('should be able to update an item', async () => {
 		const createResponse = await request(app)
 			.post('/api/items')
 			.send({
@@ -147,7 +147,7 @@ describe('E2E Tests', () => {
 		expect(receivedUpdatedAt).toBeLessThanOrEqual(currentTime);
 	});
 	
-	it("should be able to delete an item", async () => {
+	it('should be able to delete an item', async () => {
 		const createResponse = await request(app)
 		  .post('/api/items')
 		  .send({
@@ -170,25 +170,30 @@ describe('E2E Tests', () => {
 		expect(getResponse.statusCode).toBe(404);
 	});
 
-	describe("Validations", () => {
-
-		it("should validate required fields", async () => {
+	describe('Validations', () => {
+		it('should validate required fields', async () => {
 			jest.setTimeout(10000);
 		  
 			const response = await request(app)
 			  .post('/api/items')
 			  .send({
 				name: 'Item 1'
-			  });
+			});
 		  
 			expect(response.statusCode).toBe(400);
 			expect(response.body).toEqual({
-				message: "\"price\" is required",
-				success: false
+				errors:[{
+           			constraints: {
+             			'isInt': 'price must be an integer number',
+             			'min': 'price must not be less than 1',
+           			},
+           			'field': 'price',
+         		}],
+       			'message': 'validation failed',
 			});
 		});
 
-		it("should not allow for negative pricing for new items", async () => {
+		it('should not allow for negative pricing for new items', async () => {
 			const response = await request(app)
 			  .post('/api/items')
 			  .send({
@@ -199,12 +204,19 @@ describe('E2E Tests', () => {
 			expect(response.statusCode).toBe(400);
 		
 			expect(response.body).toEqual({
-			  success: false,
-			  message: "\"price\" must be greater than or equal to 1"
+				'message': 'validation failed',
+				'errors': [
+					{
+						'field': 'price',
+						'constraints': {
+							'min': 'price must not be less than 1'
+						}
+					}
+				]
 			});
 		});
 
-		it("should not allow for negative pricing for updated items", async () => {
+		it('should not allow for negative pricing for updated items', async () => {
 			const createdItemResponse = await request(app)
 			  .post('/api/items')
 			  .send({
@@ -225,9 +237,16 @@ describe('E2E Tests', () => {
 			expect(response.statusCode).toBe(400);
 		
 			expect(response.body).toEqual({
-			  success: false,
-			  message: "\"price\" must be greater than or equal to 1"
+				message: 'validation failed',
+				errors: [
+				  {
+					field: 'price',
+					constraints: {
+					  min: 'price must not be less than 1'
+					}
+				  }
+				]
 			});
-		  });
+		});
 	});
 });

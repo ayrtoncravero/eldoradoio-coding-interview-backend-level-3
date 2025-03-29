@@ -1,7 +1,10 @@
-import { AppError } from './AppError';
+export class BadRequestError extends Error {
+  statusCode: number;
+  errors: any;
 
-export class BadRequestError extends AppError {
-  constructor(message: string = 'Bad Request') {
-    super(message, 400);
+  constructor(message: string, errors?: any) {
+    super(message);
+    this.statusCode = 400;
+    this.errors = errors || [];
   }
-};
+}
