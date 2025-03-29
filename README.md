@@ -10,14 +10,24 @@
 6. [Documentación de la API](#api-documentation)  
    - [Colección de Postman](#📖-postman-collection)  
    - [Cómo Importar la Colección en Postman](#📌-cómo-importar-la-colección-en-postman)  
-7. [Instrucciones para Iniciar la API con Docker](#instrucciones-para-iniciar-la-api-con-docker)  
-   - [Requisitos previos](#requisitos-previos)  
-   - [Pasos para Iniciar la API](#pasos-para-iniciar-la-api)  
-   - [Clonar el repositorio](#1-clonar-el-repositorio)  
-   - [Configurar el archivo de entorno `.env`](#2-configurar-el-archivo-de-entorno-env)  
-   - [Iniciar Docker](#3-iniciar-docker)  
-   - [Apagar los contenedores](#4-apagar-los-contenedores)  
-   - [Acceder a la API](#5-acceder-a-la-api)  
+7. [Instrucciones para Iniciar la API](#instrucciones-para-iniciar-la-api)  
+   - [Con Docker](#instrucciones-para-iniciar-la-api-con-docker)  
+     - [Requisitos previos](#requisitos-previos)  
+     - [Pasos para Iniciar la API](#pasos-para-iniciar-la-api)  
+     - [Clonar el repositorio](#1-clonar-el-repositorio)  
+     - [Configurar el archivo de entorno `.env`](#2-configurar-el-archivo-de-entorno-env)  
+     - [Iniciar Docker](#3-iniciar-docker)  
+     - [Apagar los contenedores](#4-apagar-los-contenedores)  
+     - [Acceder a la API](#5-acceder-a-la-api)  
+   - [Sin Docker](#instrucciones-para-iniciar-la-api-sin-docker)  
+     - [Requisitos previos](#requisitos-previos-para-iniciar-sin-docker)  
+     - [Pasos para Iniciar la API](#pasos-para-iniciar-la-api-sin-docker)  
+     - [Clonar el repositorio](#1-clonar-el-repositorio-sin-docker)  
+     - [Instalar dependencias](#2-instalar-dependencias)  
+     - [Configurar el archivo de entorno `.env`](#3-configurar-el-archivo-de-entorno-env-sin-docker)  
+     - [Configurar la base de datos](#4-configurar-la-base-de-datos)  
+     - [Iniciar la API](#5-iniciar-la-api)  
+     - [Probar la API](#6-probar-la-api)   
 
 ## Introducción
 
@@ -165,7 +175,7 @@ cp .env.example .env
 #### Iniciar api
 
 ```bash
-npm run dec
+npm run dev
 ```
 
 ## Acceder a la API
