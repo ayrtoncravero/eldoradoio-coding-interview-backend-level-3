@@ -10,14 +10,24 @@
 6. [Documentación de la API](#api-documentation)  
    - [Colección de Postman](#📖-postman-collection)  
    - [Cómo Importar la Colección en Postman](#📌-cómo-importar-la-colección-en-postman)  
-7. [Instrucciones para Iniciar la API con Docker](#instrucciones-para-iniciar-la-api-con-docker)  
-   - [Requisitos previos](#requisitos-previos)  
-   - [Pasos para Iniciar la API](#pasos-para-iniciar-la-api)  
-   - [Clonar el repositorio](#1-clonar-el-repositorio)  
-   - [Configurar el archivo de entorno `.env`](#2-configurar-el-archivo-de-entorno-env)  
-   - [Iniciar Docker](#3-iniciar-docker)  
-   - [Apagar los contenedores](#4-apagar-los-contenedores)  
-   - [Acceder a la API](#5-acceder-a-la-api)  
+7. [Instrucciones para Iniciar la API](#instrucciones-para-iniciar-la-api)  
+   - [Con Docker](#instrucciones-para-iniciar-la-api-con-docker)  
+     - [Requisitos previos](#requisitos-previos)  
+     - [Pasos para Iniciar la API](#pasos-para-iniciar-la-api)  
+     - [Clonar el repositorio](#1-clonar-el-repositorio)  
+     - [Configurar el archivo de entorno `.env`](#2-configurar-el-archivo-de-entorno-env)  
+     - [Iniciar Docker](#3-iniciar-docker)  
+     - [Apagar los contenedores](#4-apagar-los-contenedores)  
+     - [Acceder a la API](#5-acceder-a-la-api)  
+   - [Sin Docker](#instrucciones-para-iniciar-la-api-sin-docker)  
+     - [Requisitos previos](#requisitos-previos-para-iniciar-sin-docker)  
+     - [Pasos para Iniciar la API](#pasos-para-iniciar-la-api-sin-docker)  
+     - [Clonar el repositorio](#1-clonar-el-repositorio-sin-docker)  
+     - [Instalar dependencias](#2-instalar-dependencias)  
+     - [Configurar el archivo de entorno `.env`](#3-configurar-el-archivo-de-entorno-env-sin-docker)  
+     - [Configurar la base de datos](#4-configurar-la-base-de-datos)  
+     - [Iniciar la API](#5-iniciar-la-api)  
+     - [Probar la API](#6-probar-la-api)   
 
 ## Introducción
 
@@ -121,7 +131,54 @@ Apagar los contenedores
 	docker-compose down
 ```
 
-## 5. Acceder a la API
+## Instrucciones para Iniciar la API sin Docker
+
+### Requisitos previos
+
+Antes de iniciar la API, asegúrate de tener instaladas las siguientes herramientas:
+
+- **Node.js**: Descárgalo e instálalo desde [aquí](https://nodejs.org/).
+- **MySQL**: Asegúrate de tener un servidor MySQL en ejecución y configurado correctamente.
+- **Git**: Para clonar el repositorio.
+- **Editor de texto**: Se recomienda **VS Code** o similar.
+
+### Pasos para iniciar la API
+
+#### 1. Clonar el repositorio
+
+#### Ejecuta el siguiente comando en la terminal para clonar el código fuente del proyecto:
+
+```bash
+git clone https://github.com/tu-repositorio/coding-interview-backend-level-3.git
+```
+
+#### Luego, entra en la carpeta del proyecto:
+
+```bash
+cd coding-interview-backend-level-3
+```
+
+#### Instalar dependencias
+
+```bash
+npm i
+```
+
+#### Configurar variables de entorno
+
+```bash
+cp .env.example .env
+```
+
+#### Luego, edita el archivo .env y configura las credenciales de la base de datos MySQL y demás
+
+#### Iniciar api
+
+```bash
+npm run dev
+```
+
+## Acceder a la API
 
 Una vez que la API esté corriendo, puedes acceder a los endpoints en:
 
