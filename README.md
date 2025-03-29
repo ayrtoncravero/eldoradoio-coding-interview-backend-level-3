@@ -41,6 +41,23 @@ El proyecto sigue un flujo de trabajo basado en **Git Flow** con las siguientes 
 - **`develop`** → Es la rama principal de desarrollo donde se integran nuevas funcionalidades antes de pasar a producción.
 - **`feature/{nombre}`** → Ramas individuales para el desarrollo de nuevas características, que luego se fusionan en `develop`.
 ![Arquitectura de la API](./doc/images/branches.png)
+---
+
+# API Documentation
+
+## 📖 Postman Collection
+
+Para probar los endpoints de esta API en **Postman**, puedes importar la siguiente colección:
+
+📥 [Descargar colección de Postman](./doc/postman/eldoradoio.postman_collection.json)
+
+### 📌 ¿Cómo Importar la Colección en Postman?
+1. Abre **Postman**.
+2. Ve a `File` > `Import`.
+3. Selecciona `Upload Files` y carga el archivo `eldoradoio.postman_collection.json.json`.
+4. ¡Listo! Ahora puedes usar los endpoints en Postman.
+
+---
 
 # Instrucciones para Iniciar la API con Docker
 
