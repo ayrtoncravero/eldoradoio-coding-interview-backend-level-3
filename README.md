@@ -121,7 +121,54 @@ Apagar los contenedores
 	docker-compose down
 ```
 
-## 5. Acceder a la API
+## Instrucciones para Iniciar la API sin Docker
+
+### Requisitos previos
+
+Antes de iniciar la API, asegúrate de tener instaladas las siguientes herramientas:
+
+- **Node.js**: Descárgalo e instálalo desde [aquí](https://nodejs.org/).
+- **MySQL**: Asegúrate de tener un servidor MySQL en ejecución y configurado correctamente.
+- **Git**: Para clonar el repositorio.
+- **Editor de texto**: Se recomienda **VS Code** o similar.
+
+### Pasos para iniciar la API
+
+#### 1. Clonar el repositorio
+
+#### Ejecuta el siguiente comando en la terminal para clonar el código fuente del proyecto:
+
+```bash
+git clone https://github.com/tu-repositorio/coding-interview-backend-level-3.git
+```
+
+#### Luego, entra en la carpeta del proyecto:
+
+```bash
+cd coding-interview-backend-level-3
+```
+
+#### Instalar dependencias
+
+```bash
+npm i
+```
+
+#### Configurar variables de entorno
+
+```bash
+cp .env.example .env
+```
+
+#### Luego, edita el archivo .env y configura las credenciales de la base de datos MySQL y demás
+
+#### Iniciar api
+
+```bash
+npm run dec
+```
+
+## Acceder a la API
 
 Una vez que la API esté corriendo, puedes acceder a los endpoints en:
 
