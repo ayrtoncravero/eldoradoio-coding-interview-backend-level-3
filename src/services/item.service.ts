@@ -1,5 +1,5 @@
+import { CreateItemDto } from '../dtos/createItem.dto';
 import { Item } from '../entity/Item';
-import { BadRequestError } from '../errors/BadRequestError';
 import { DatabaseError } from '../errors/DatabaseError';
 import { ItemRepository } from '../repositories/item.repository';
 
@@ -8,13 +8,13 @@ export class ItemService {
         private readonly itemRepository: ItemRepository,
     ) {};
 
-    async create(item: any): Promise<Item> {
+    async create(itemDto: CreateItemDto): Promise<Item> {
         try {
             const newItem = new Item();
 
             const loadedItem: Item = this.loadItem(
                 newItem,
-                item,
+                itemDto,
             );
 
             const savedItem: Item | null = await this.itemRepository.save(loadedItem);
@@ -33,11 +33,16 @@ export class ItemService {
     }
     private loadItem(
         newItem: Item,
-        item: Item,
+        itemDto: CreateItemDto,
     ) {
-        newItem.name = item.name;
-        newItem.price = item.price;
-
-        return item;
+        if (itemDto.name !== undefined) {
+            newItem.name = itemDto.name;
+        }
+    
+        if (itemDto.price !== undefined) {
+            newItem.price = itemDto.price;
+        }
+    
+        return newItem;
     }
 };

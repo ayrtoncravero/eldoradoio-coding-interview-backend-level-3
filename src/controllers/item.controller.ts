@@ -1,15 +1,15 @@
 import { NextFunction, Request, Response } from 'express';
 import { ItemService } from '../services/item.service';
 import Joi from 'joi';
-import { createItemValidate } from '../validators/createItem.validate';
 import { BadRequestError } from '../errors/BadRequestError';
 import { Item } from '../entity/Item';
 import { ItemRepository } from '../repositories/item.repository';
 import { NotFoundError } from '../errors/NotFoundError';
 import { getItemById } from '../validators/getItemById.validate';
-import { updateItemById } from '../validators/updateItemById.validate';
 import { DatabaseError } from '../errors/DatabaseError';
 import { deleteItemById } from '../validators/deleteItemById.validate';
+import { UpdateItemDto } from '../dtos/updateItem.dto';
+import { CreateItemDto } from '../dtos/createItem.dto';
 
 export class ItemController {
     constructor(
@@ -57,27 +57,14 @@ export class ItemController {
      *         description: Error en el servidor
      */
     async create(req: Request, res: Response, next: NextFunction): Promise<Response | any> {
-        // TODO: (Ver si agrego)Agregar dto directamente para hacer las validaciones ahi
         try {
-            const { name, price } = req.body;
+            const itemDto: CreateItemDto = req.body;
 
-            const data: any = {
-                name,
-                price,
-            };
-
-            const validation: Joi.ValidationResult<any> = createItemValidate(data);
-            if (validation.error) {
-                console.log('error validation in create item: ', validation.error.message);
-
-                throw new BadRequestError(`${validation.error.message}`);
-            }
-
-            let item: Item | null = await this.itemService.create(data);
+            let item: Item | null = await this.itemService.create(itemDto);
 
             return res.status(201).json(item);
         } catch (error: any) {
-            console.log('error: ', error.message);
+            console.log('error in create item: ', error.message);
 
             next(error);
         }
@@ -233,16 +220,15 @@ export class ItemController {
      *         description: Error en el servidor
      */
     async update(req: Request, res: Response, next: NextFunction) {
-        const id: number = parseInt(req.params.id);
-        const { name, price } = req.body;
-
         try {
-            const validation: Joi.ValidationResult<any> = updateItemById({ id, name, price });
-            if (validation.error) {
-                console.log('error validation in get item by id: ', validation.error.message);
+            const id: number = parseInt(req.params.id);
+            if (isNaN(id) || id <= 0) {
+                console.log('invalid id in update item');
 
-                throw new BadRequestError(`${validation.error.message}`);
+                throw new BadRequestError('invalid id');
             }
+
+            const itemDto: UpdateItemDto = req.body;
 
             let item: Item | null = await this.itemRepository.getOneById(id);
             if (!item) {
@@ -251,9 +237,9 @@ export class ItemController {
                 throw new NotFoundError('item not found');
             }
 
-            item = this.itemRepository.merge(item, req.body);
+            item = this.itemRepository.merge(item, itemDto);
 
-            const savedItem: Item | null= await this.itemRepository.save(item);
+            const savedItem: Item | null = await this.itemRepository.save(item);
             if(!savedItem) {
                 console.log('error in save item');
     
@@ -262,10 +248,8 @@ export class ItemController {
 
             return res.json({
                 ...savedItem,
-                price: Number(savedItem.price), // Convertir a número
+                price: Number(savedItem.price),
             });
-
-            return res.json(item);
         } catch (error: any) {
             console.error('error in update item: ', error.message);
 
