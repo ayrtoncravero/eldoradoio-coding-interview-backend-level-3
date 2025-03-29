@@ -1,5 +1,24 @@
 # Documentación de la API
 
+## 📖 Tabla de Contenidos
+
+1. [Introducción](#introducción)  
+2. [Tecnologías](#tecnologías)  
+3. [Arquitectura](#arquitectura)  
+4. [Base de Datos](#base-de-datos)  
+5. [Ramas de Git](#ramas-de-git)  
+6. [Documentación de la API](#api-documentation)  
+   - [Colección de Postman](#📖-postman-collection)  
+   - [Cómo Importar la Colección en Postman](#📌-cómo-importar-la-colección-en-postman)  
+7. [Instrucciones para Iniciar la API con Docker](#instrucciones-para-iniciar-la-api-con-docker)  
+   - [Requisitos previos](#requisitos-previos)  
+   - [Pasos para Iniciar la API](#pasos-para-iniciar-la-api)  
+   - [Clonar el repositorio](#1-clonar-el-repositorio)  
+   - [Configurar el archivo de entorno `.env`](#2-configurar-el-archivo-de-entorno-env)  
+   - [Iniciar Docker](#3-iniciar-docker)  
+   - [Apagar los contenedores](#4-apagar-los-contenedores)  
+   - [Acceder a la API](#5-acceder-a-la-api)  
+
 ## Introducción
 
 Esta API está diseñada como una API RESTful para la gestión de **Items** en el sistema. Esta API proporciona un conjunto de endpoints para realizar operaciones **CRUD** (Crear, Leer, Actualizar y Eliminar) sobre los recursos **Item**.
