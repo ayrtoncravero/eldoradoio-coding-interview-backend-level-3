@@ -32,7 +32,9 @@ export class Item extends BaseEntity {
      * @type {string}
      * @memberof Item
      */
-    @Column()
+    @Column({
+        nullable: true
+    })
     name!: string;
 
     /**
@@ -46,7 +48,8 @@ export class Item extends BaseEntity {
     @Column({
         type: 'decimal',
         precision: 10,
-        scale: 2
+        scale: 2,
+        nullable: true
     })
     price!: number;
 

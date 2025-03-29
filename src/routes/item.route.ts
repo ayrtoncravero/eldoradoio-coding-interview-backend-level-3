@@ -1,5 +1,8 @@
 import { Router } from 'express';
 import { getItemController } from '../modules/items/item.dependencies';
+import { validateDto } from '../middleware/validateDto.middleware';
+import { UpdateItemDto } from '../dtos/updateItem.dto';
+import { CreateItemDto } from '../dtos/createItem.dto';
 
 const router = Router();
 
@@ -35,7 +38,7 @@ const router = Router();
      *       400:
      *         description: Error en la solicitud
      */
-    router.post('/', itemController.create.bind(itemController));
+    router.post('/', validateDto(CreateItemDto), itemController.create.bind(itemController));
 
     /**
      * @swagger
@@ -120,7 +123,7 @@ const router = Router();
      *       400:
      *         description: Error en la solicitud
      */
-    router.patch('/:id', itemController.update.bind(itemController));
+    router.patch('/:id', validateDto(UpdateItemDto), itemController.update.bind(itemController));
 
     /**
      * @swagger
