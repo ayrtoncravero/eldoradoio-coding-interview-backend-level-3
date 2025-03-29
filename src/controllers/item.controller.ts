@@ -10,6 +10,7 @@ import { DatabaseError } from '../errors/DatabaseError';
 import { deleteItemById } from '../validators/deleteItemById.validate';
 import { UpdateItemDto } from '../dtos/updateItem.dto';
 import { CreateItemDto } from '../dtos/createItem.dto';
+import { updateItemById } from '../validators/updateItemById.validate';
 
 export class ItemController {
     constructor(
@@ -148,7 +149,6 @@ export class ItemController {
      */
     async getById(req: Request, res: Response, next: NextFunction) {
         const id: number = parseInt(req.params.id);
-
         const validation: Joi.ValidationResult<any> = getItemById({ id });
         if (validation.error) {
             console.log('error validation in get item by id: ', validation.error.message);
@@ -222,10 +222,11 @@ export class ItemController {
     async update(req: Request, res: Response, next: NextFunction) {
         try {
             const id: number = parseInt(req.params.id);
-            if (isNaN(id) || id <= 0) {
-                console.log('invalid id in update item');
+            const validation: Joi.ValidationResult<any> = updateItemById({ id });
+            if (validation.error) {
+                console.log('error validation in update item by id: ', validation.error.message);
 
-                throw new BadRequestError('invalid id');
+                throw new BadRequestError(`${validation.error.message}`);
             }
 
             const itemDto: UpdateItemDto = req.body;
@@ -281,7 +282,6 @@ export class ItemController {
      */
     async delete(req: Request, res: Response, next: NextFunction) {
         const id: number = parseInt(req.params.id);
-
         const validation: Joi.ValidationResult<any> = deleteItemById({ id });
         if (validation.error) {
             console.log('error validation in delete item by id: ', validation.error.message);
